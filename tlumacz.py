@@ -25,6 +25,12 @@ def listen(lang):
     return r.recognize_google(audio, language=lang)
 
 
+mic_list = sr.Microphone.list_microphone_names()
+if not mic_list:
+    speak("Nie wykryto żadnego mikrofonu. Sprawdź podłączenie.")
+    sys.exit(0)
+
+
 with sr.Microphone() as source:
     print("Kalibracja mikrofonu...")
     r.adjust_for_ambient_noise(source, duration=1)
